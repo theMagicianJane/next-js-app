@@ -1,7 +1,50 @@
-import type { NextConfig } from "next";
+const nextConfig = {
+  async redirects() {
+    return [
+      {
+        source: '/login',
+        has: [{
+          type: 'cookie',
+          key: 'token',
+        }],
+        destination: '/chart',
+        permanent: false,
+      },
+      {
+        source: '/chart',
+        missing: [
+          {
+            type: "cookie",
+            key: "token",
+          },
+        ],
+        destination: '/login',
+        permanent: false,
+      },
+      {
+        source: '/',
+        missing: [
+          {
+            type: "cookie",
+            key: "token",
+          },
+        ],
+        destination: '/login',
+        permanent: false,
+      },
+      {
+        source: '/',
+        has: [
+          {
+            type: "cookie",
+            key: "token",
+          },
+        ],
+        destination: '/chart',
+        permanent: false,
+      },
+    ]
+  }
+}
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
-
-export default nextConfig;
+export default nextConfig

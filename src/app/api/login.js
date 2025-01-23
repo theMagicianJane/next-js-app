@@ -1,20 +1,22 @@
 'use client'
-import api from "@/app/apiClient/axiosInstance";
+import api from "../apiClient/axiosInstance";
 import { redirect } from 'next/navigation'
 import { setCookie } from 'cookies-next';
 
 export default async function login({ email, password }) {
-  const response = await api.post(
-    "auth/login",
+  try {
+    const response = await api.post(
+      "auth/login",
       {
-        email: 'challenge2025@arbolitics.com',
-        password: 'challenge2025'
+        email,
+        password
       }
-  );
+    );
+    const { accessToken } = response?.data?.data
 
-
-  setCookie('loggedIn', true)
-  redirect(`/data/`)
-
-  return response.data;
+    setCookie('token', accessToken);
+  } catch (e) {
+    console.log(e)
+  }
+  redirect(`/chart`);
 };

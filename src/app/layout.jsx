@@ -1,22 +1,13 @@
 "use client"
-import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from './components/Navbar/page';
 import { QueryClient, QueryClientProvider } from "react-query";
-
-
 import { ThemeProvider } from "@material-tailwind/react";
 
 const queryClient = new QueryClient();
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }) {
   return (
-    <html>
+    <html style={{ fontSize: "16px" }}>
       <body>
         <ThemeProvider>
           <QueryClientProvider client={queryClient}>

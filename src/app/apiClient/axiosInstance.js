@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 const baseURL = 'https://staging-api.arbolitics.com/';
+import { getCookie } from 'cookies-next/client';
 
 const api = axios.create({
   baseURL,
@@ -15,7 +16,7 @@ const api = axios.create({
 
 api.interceptors.request.use(
   (config) => {
-    const accessToken = localStorage.getItem('accessToken');
+    const accessToken = getCookie('token');
 
     if (accessToken) {
       config.headers['Authorization'] = `Bearer ${accessToken}`;

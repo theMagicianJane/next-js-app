@@ -8,9 +8,10 @@ import getDataset from '../api/getDataset';
 import { Select, Option } from "@material-tailwind/react";
 import { getOptions } from "./options";
 import { formatDate, getPeriodData, getDeviceData } from "./utils/utils";
+import './styles.css';
 
 
-export default function Data () {
+export default function Chart () {
   const [startDate, setStartDate] = useState(new Date('2024-12-29'));
   const [chartValue, setChartValue] = useState('hum1');
   const [mode, setMode] = useState('daily');
@@ -23,21 +24,25 @@ export default function Data () {
 
   return (
     <>
-      <div className="flex">
+      <div className="flex justify-center mt-10">
         <DatePicker
           selected={startDate}
           onChange={(date) => setStartDate(date)}
           dateFormat='yyyy-MM-dd'
+          inline
         />
-        <Select label="Select device" onChange={setChartValue}>
-          <Option selected value='hum1'>Humidity</Option>
-          <Option value='tem1'>Temperature</Option>
-        </Select>
-        <Select label="Select interval" onChange={setMode}>
-          <Option selected value='daily'>Daily</Option>
-          <Option value='weekly'>Weekly</Option>
-          <Option value='monthly'>Monthly</Option>
-        </Select>
+        <div className='flex grid-cols-2 gap-4'>
+          <Select label="Select device" onChange={setChartValue}>
+            <Option selected value='hum1'>Humidity</Option>
+            <Option value='tem1'>Temperature</Option>
+          </Select>
+          <Select label="Select interval" onChange={setMode} className=''>
+            <Option selected value='daily'>Daily</Option>
+            <Option value='weekly'>Weekly</Option>
+            <Option value='monthly'>Monthly</Option>
+          </Select>
+        </div>
+
       </div>
       {!getPeriodData(DID_25_225, chartValue, mode, startDate).length ?
         (<div className='text-center m-100'>{placeholder}</div>) : (

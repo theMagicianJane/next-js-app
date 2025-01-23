@@ -1,7 +1,6 @@
 import { getData, getPeriodData, formatDate, getDeviceData } from "./utils/utils";
 
 
-
 export const getOptions = (mode, chartValue, dates, startDate) => {
   const newDates = dates.map(({ TMS, ...date }) => ({ ...date, TMS: formatDate(TMS) }))
   const DID_25_225 = getDeviceData(newDates,"25_225")
