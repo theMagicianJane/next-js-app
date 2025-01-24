@@ -1,7 +1,8 @@
-This is a test task project created with Next.JS, React, Tailwind, echarts-for-react, react-query. It visualizes available
-data in charts to see changes in time.
+This is a test task project created with Next.JS, React, Tailwind, echarts-for-react, react-query.
+It visualizes available data in charts to see changes in time.
 
 ## Getting Started
+
 Steps to run the app:
 1) npm i 
 2) npm run build
@@ -16,7 +17,7 @@ The app has two pages: Login, Chart.
 email: challenge2025@arbolitics.com
 password: challenge2025@arbolitics.com
 
-You can login using credentials and after successfull login you will be redirected to the Chart page
+You can login using credentials and after successful login you will be redirected to the Chart page
 
 ## Chart page
 

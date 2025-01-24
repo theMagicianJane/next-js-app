@@ -11,11 +11,12 @@ export const formatDate = timestamp => moment(timestamp * 1000).format(FORMAT)
 
 export const getMonthDates = (startDate, data) => {
   const selectedDay = moment(startDate)
-  const fromDate = selectedDay.startOf('month').format(FORMAT);
-  const toDate = selectedDay.endOf('month').format(FORMAT);
+  const fromDate = selectedDay.startOf(MONTH).format(FORMAT);
+  const toDate = selectedDay.endOf(MONTH).format(FORMAT);
 
   const period = data
-    .filter(date => moment(moment(date?.TMS).format(FORMAT)).isBetween(fromDate, toDate, null, '[]'))
+    .filter(date => moment(moment(date?.TMS).format(FORMAT))
+      .isBetween(fromDate, toDate, null, '[]'))
     .map(data => data?.TMS)
     .reverse();
   return [...new Set(period)]
@@ -41,8 +42,9 @@ export const getPeriodChartData = (data, prop, mode, startDate) => {
 
   const periodData = data.filter(date => moment(moment(date?.TMS).format(FORMAT)).isBetween(fromDate, toDate, null, '[]'));
   const periodDataInChunks = periodData.reverse().reduce((acc, _, i) => (i % 24) ? acc : [...acc, periodData.slice(i, i + 24)], [])
+  const averageValueInChunks = periodDataInChunks.map(dayData => dayData.reduce((sum, value) => sum + value[prop], 0) / dayData.length);
 
-  return periodDataInChunks.map(dayData => dayData.reduce((sum, value) => sum + value[prop], 0) / dayData.length);
+  return averageValueInChunks;
 }
 
 export const getPeriodData = (data, chartValue, mode, startDate) => ({
@@ -51,7 +53,7 @@ export const getPeriodData = (data, chartValue, mode, startDate) => ({
   monthly: getPeriodChartData(data, chartValue, mode, startDate)
 }[mode]);
 
-export const getDeviceData = (data, device) => data.filter(date => date.DID === device)
+export const getDeviceData = (data, device) => data.filter(date => date?.DID === device)
 
 
 
